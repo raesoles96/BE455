@@ -1,0 +1,19 @@
+install.packages("xlsx")
+# install.packages("remotes")
+remotes::install_github("uace-azmet/azmetr")
+
+library(xlsx)
+library(azmetr)
+
+system.time(
+  sub_yr <- az_daily(station_id = C(5), start_date = "2024-01-01", end_date = "2024-12-31")
+)
+
+system.time(
+  sub_yr2 <- subset(
+    az_daily(start_date = "2024-01-01", end_date = "2024-12-31"),
+    meta-station_id c("az05")
+  )
+)
+
+all(sub_yr2 == sub_yr)
